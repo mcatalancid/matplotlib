@@ -866,7 +866,7 @@ public:
         if (m_has_last) {
             // We want the "cursor" along the sine wave to move at a
             // random rate.
-            double d_rand = rand() / double(RAND_MAX);
+            double d_rand = drand48() / double(RAND_MAX);
             double d_M_PI = 3.14159265358979323846;
             m_p += pow(m_randomness, d_rand * 2.0 - 1.0);
             double r = sin(m_p / (m_length / (d_M_PI * 2.0))) * m_scale;
@@ -893,7 +893,7 @@ public:
     inline void
     rewind(unsigned path_id)
     {
-        srand(0);
+        srand48(0);
         m_has_last = false;
         m_p = 0.0;
         if (m_scale != 0.0) {
