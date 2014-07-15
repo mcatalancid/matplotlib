@@ -934,7 +934,7 @@ class FreeType(SetupPackage):
             version = output
         else:
             version = None
-
+            
         return self._check_for_pkg_config(
             'freetype2', 'ft2build.h',
             min_version='2.4', version=version)
