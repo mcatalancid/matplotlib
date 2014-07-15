@@ -172,7 +172,7 @@ if __name__ == '__main__':
             "The following required packages can not "
             "be built: %s" %
             ', '.join(x.name for x in required_failed))
-        sys.exit(1)
+        #sys.exit(1)
 
 
     # Now collect all of the information we need to build all of the
