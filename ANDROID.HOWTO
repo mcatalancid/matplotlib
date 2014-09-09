@@ -1,0 +1,35 @@
+# MATPLOTLIB FOR ANDROID
+
+## How to crosscompile matplotlib for android
+
+1. Dependences: python freetype numpy libpng
+
+2. In the toolchain/sysroot of android, make a symbolic link of the binaries changing the android prefix by your host prefix.
+
+Example: 
+
+  ln -s $(SYSROOT)/bin/arm-linux-androideabi-ar $(SYSROOT)/bin/x86_64-linux-gnu-ar ;\
+  
+3. Export the path of your android toolchain/sysroot as the host path:
+
+Example: 
+		export PATH=$(SYSROOT)/bin ;\
+		export LD_LIBRARY_PATH=$(SYSROOT)/lib ;\
+		export CC=$(PREFIX_EXT)gcc ;\
+		export LD=$(PREFIX_EXT)ld ;\
+		export AR=$(PREFIX_EXT)ar ;\
+		export CXX=$(PREFIX_EXT)g++ ;\
+		export CPP=$(PREFIX_EXT)cpp ;\
+		
+4. Create the destination site-packages directory and export PYTHOPATH as this directory:
+
+		/bin/mkdir -p $(CURRENT_INSTALL_DIR)/lib/python2.7/site-packages ;\
+		export PYTHONPATH=$(CURRENT_INSTALL_DIR)/lib/python2.7/site-packages ;\
+		
+5. Substitute or modify ctype_base.h file of android's sysroot/toolchain with ctype_base.h.patched
+
+		
+6. Build and install matplotlib using your host's python:
+
+		$(HOSTPYTHON) setup.py build_ext -v  ;\
+		$(HOSTPYTHON) setup.py install -O2 --prefix=$(CURRENT_INSTALL_DIR) ;\
